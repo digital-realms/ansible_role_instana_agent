@@ -1,0 +1,42 @@
+#!/bin/bash
+# Instana Agent
+# chkconfig: 345 99 09
+# description: Instana Agent
+# processname: instana-agent
+
+AGENT_HOME={{ instana_dest }}/instana-agent
+JAVA_HOME=`which java`
+
+$AGENT_HOME/bin/status &> /dev/null
+
+case $1 in
+  start)
+    if [ "$?" -eq "0" ]; then
+      echo "Instana Agent already running..."
+    else
+      $AGENT_HOME/bin/start
+    fi
+  ;;
+  stop)
+    if [ "$?" -eq "0" ]; then
+      $AGENT_HOME/bin/stop
+    else
+      echo "Instana Agent not running..."
+      exit 1
+    fi
+  ;;
+  restart)
+    $AGENT_HOME/bin/stop
+    $AGENT_home/bin/start
+  ;;
+  status)
+    if [ "$?" -eq "0" ]; then
+      echo "Instana Agent running ..."
+    else
+      echo "Instana Agent NOT running ..."
+      exit 1
+    fi
+  ;;
+  *)
+  ;;
+esac

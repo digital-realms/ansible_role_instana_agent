@@ -1,7 +1,11 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role installs the Instana agent and configures it to a state that is running and pushing metrics to their SaaS environment.
+
+The README is still a WIP and the module is an initial commit. it has been targetted towards CentOS 6 & 7 so far, however, we'll be expanding it's scope further along to cover Debian based machines.
+
+Anything below this line is still default and therefore useless to read for now :)
 
 Requirements
 ------------
@@ -30,7 +34,7 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------

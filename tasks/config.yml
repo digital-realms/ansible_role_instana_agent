@@ -1,0 +1,16 @@
+---
+  - name: setting JAVA_HOME in Instana's SETENV config file
+    lineinfile:
+      dest: "{{ instana_dest }}/instana-agent/bin/setenv"
+      regexp: '^export JAVA_HOME='
+      line: "export JAVA_HOME={{ instana_java_home }}"
+    when:
+      - instana_java_home is defined
+
+  - name: configuring Instana
+    template:
+      src: templates/config.j2
+      dest: "{{ instana_dest }}/instana-agent/etc/instana/configuration-ansible.yaml"
+      owner: root
+      group: root
+      mode: 0644

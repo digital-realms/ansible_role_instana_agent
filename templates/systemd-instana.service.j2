@@ -1,0 +1,10 @@
+[Unit]
+Description=Instana Agent
+
+[Service]
+Type=forking
+ExecStart={{ instana_dest }}/instana-agent/bin/start
+ExecStop={{ instana_dest }}/instana-agent/bin/stop
+
+[Install]
+WantedBy={{ instana_sysd_runlevel }}

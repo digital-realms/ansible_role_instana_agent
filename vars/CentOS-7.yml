@@ -1,0 +1,4 @@
+---
+  tmpl_source: systemd-instana.service.j2
+  tmpl_dest: '/etc/systemd/system/instana.service'
+  systemd_enabled: yes

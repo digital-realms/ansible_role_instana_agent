@@ -1,0 +1,4 @@
+---
+  tmpl_source: initd-instana.j2
+  tmpl_dest: '/etc/init.d/instana'
+  initd_enabled: yes

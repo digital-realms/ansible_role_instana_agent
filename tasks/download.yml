@@ -1,0 +1,22 @@
+---
+  - name: "get Instana access token"
+    uri:
+      url: https://{{ instana_tenant_unit }}-{{ instana_tenant }}.instana.io/auth/signIn
+      method: POST
+      body: "email={{ instana_uri_email }}&password={{ instana_uri_password | urlencode }}"
+      status_code: 302
+      HEADER_Content-Type: "application/x-www-form-urlencoded"
+      validate_certs: "{{ instana_validate_certs }}"
+    register: login
+
+  - name: "download Instana agent"
+    uri:
+      url: https://instana.io/ump/{{ instana_tenant }}/{{ instana_tenant_unit }}/agent/download
+      method: POST
+      body: "type={{ instana_agent_type }}"
+      return_content: yes
+      HEADER_Cookie: "{{ login.set_cookie }}"
+      HEADER_Content-Type: "application/x-www-form-urlencoded"
+      dest: "{{ instana_dest }}/instana-agent-linux-64bit.tar.gz"
+      creates: "{{ instana_dest }}/instana-agent-linux-64bit.tar.gz"
+      when: ansible_os_family == "RedHat" or ansible_os_family == "Debian"

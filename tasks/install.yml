@@ -1,0 +1,31 @@
+---
+  - name: Fetch Java version
+    shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+    register: java_version
+
+  - name: Ensuring Java is installed and correct version
+    assert:
+      that:
+        - java_version.stdout | version_compare('1.6', '>=')
+      msg: "Java not found or less then version 1.6"
+
+  - name: Extracting Instana agent
+    unarchive:
+      src: "{{ instana_dest }}/instana-agent-linux-64bit.tar.gz"
+      dest: "{{ instana_dest }}"
+      remote_src: yes
+
+  - name: Loading Distro specific variables
+    include_vars:
+      file: "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+      name: instana_service
+
+  - debug: var=instana_service
+
+  - name: Applying scripts for service management
+    template:
+      src: "templates/{{ instana_service.tmpl_source }}"
+      dest: "{{ instana_service.tmpl_dest }}"
+      owner: root
+      group: root
+      mode: 0755

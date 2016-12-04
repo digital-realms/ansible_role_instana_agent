@@ -1,0 +1,32 @@
+---
+#list of vars:
+# instana_uri_email
+# instana_uri_password
+# instana_dest - default
+# instana_tenant_unit
+# instana_tenant
+
+  - name: "checking if Instana username has been inserted"
+    fail:
+      msg: "Instana username (e-mail address) [var = instana_uri_email] is empty"
+    when: (instana_uri_email is undefined or instana_uri_email is none or instana_uri_email | trim == '')
+
+  - name: "checking if Instana password has been inserted"
+    fail:
+      msg: "Instana password [var = instana_uri_password] is empty"
+    when: (instana_uri_password is undefined or instana_uri_password is none or instana_uri_password | trim == '')
+
+  - name: "checking if Instana tenant unit has been inserted"
+    fail:
+      msg: "Instana tenant unit [var = instana_tenant_unit] is empty"
+    when: (instana_tenant_unit is undefined or instana_tenant_unit is none or instana_tenant_unit | trim == '')
+
+  - name: "checking if Instana tenant has been inserted"
+    fail:
+      msg: "Instana tenant [var = instana_tenant] is empty"
+    when: (instana_tenant is undefined or instana_tenant is none or instana_tenant | trim == '')
+
+  - include: download.yml
+  - include: install.yml
+  - include: config.yml
+  - include: startup.yml

@@ -1,0 +1,172 @@
+{% if instana_config_matcher is defined and instana_config_secrets is defined %}
+# matcher must be one of these: 'contains-ignore-case' # 'contains-ignore-case', 'contains', 'regex'
+com.instana.secrets:
+  matcher: '{{ instana_config_matcher }}'
+  list:
+    {% for secret in instana_config_secrets -%}
+    - '{{ secret }}'
+    {% endfor %}
+{% endif %}
+
+{% if instana_config_tags is defined %}
+# Host
+com.instana.plugin.host:
+  tags:
+    {% for tag in instana_config_tags -%}
+    - '{{ tag }}'
+    {% endfor %}
+{% endif %}
+
+{% if instana_config_availzone is defined %}
+# Hardware & Zone
+com.instana.plugin.generic.hardware:
+  enabled: true # disabled by default
+  availability-zone: '{{ instana_config_availzone }}-{{ admin_id.stdout }}'
+{% endif %}
+
+{% if instana_config_httpd is defined %}
+# Apache Httpd
+com.instana.plugin.httpd:
+  user: '{{ instana_config_httpd.user }}'
+  password: '{{ instana_config_httpd.password }}'
+{% endif %}
+
+{% if instana_config_custproc is defined %}
+# Custom processes
+# To enable low level metric and availability monitoring for not automatically
+# discovered processes, uncomment the com.instana.plugin.process section and
+# list all process names of processes that should be monitored.
+# Sometimes scripts or other jobs are started through the same command, but
+# only the execution of a single command should be monitored. In this case use
+# arguments to specify any argument that should cause a process to be monitored.
+com.instana.plugin.process:
+  processes:
+    {% for proc in instana_config_custproc.processes -%}
+    - '{{ proc }}'
+    {% endfor %}
+  arguments:
+    {% for argument in instana_config_custproc.args -%}
+    - '{{ argument }}'
+    {% endfor %}
+{% endif %}
+
+{% if instana_config_memcached is defined %}
+# Memcached
+com.instana.plugin.memcached:
+  user: '{{ instana_config_memcached.user }}'
+  password: '{{ instana_config_memcached.password }}'
+{% endif %}
+
+{% if instana_config_mongodb is defined %}
+# MongoDB
+com.instana.plugin.mongodb:
+  user: '{{ instana_config_mongodb.user }}'
+  source: '{{ instana_config_mongodb.source }}' # database where the user is defined
+  password: '{{ instana_config_mongodb.password }}'
+{% endif %}
+
+{% if instana_config_mssql is defined %}
+# Mssql
+com.instana.plugin.mssql:
+  user: '{{ instana_config_mssql.user }}'
+  password: '{{ instana_config_mssql.password }}'
+{% endif %}
+
+{% if instana_config_mysql is defined %}
+# Mysql
+com.instana.plugin.mysql:
+  user: '{{ instana_config_mysql.user }}'
+  password: '{{ instana_config_mysql.password }}'
+{% endif %}
+
+{% if instana_config_mariadb is defined %}
+# MariaDB
+com.instana.plugin.mariadb:
+  user: '{{ instana_config_mariadb.user }}'
+  password: '{{ instana_config_mariadb.password }}'
+{% endif %}
+
+{% if instana_config_postgresql is defined %}
+# PostgreSQL
+com.instana.plugin.postgresql:
+  user: '{{ instana_config_postgresql.user }}'
+  password: '{{ instana_config_postgresql.password }}'
+{% endif %}
+
+{% if instana_config_redis is defined %}
+# Redis
+com.instana.plugin.redis:
+  password: '{{ instana_config_redis.password }}'
+#  Monitor certain values in Redis
+  monitor:
+    - db: {{ instana_config_redis.monitor.db }} # db number - defaults to 0 if absent
+      key: '{{ instana_config_redis.monitor.key }}' # key of value, given as string
+      type: 'list-length' # metric type. Currently only supports 'list-length'
+{% endif %}
+
+{% if instana_config_rabbitmq is defined %}
+# RabbitMq
+com.instana.plugin.rabbitmq:
+  user: '{{ instana_config_rabbitmq.user }}'
+  password: '{{ instana_config_rabbitmq.password }}'
+  monitorQueues:
+    - queue: {{ instana_config_rabbitmq.monitorqueues.queue }} #name of the queue
+      vhost: {{ instana_config_rabbitmq.monitorqueues.vhost }} #name of the vhost, default is '/'
+{% endif %}
+
+{% if instana_config_jmx is defined %}
+# Java & Custom JMX
+com.instana.plugin.java:
+  jmx:
+    # JMX is NOT hot-reloaded and needs to be set before a JVM is discovered.
+    # Supported attribute types are Number and Boolean
+    # delta calculation is only supported for Number
+#    - object_name: 'java.lang:type=Compilation'
+#      metrics:
+#        - attributes: 'TotalCompilationTime'
+#          type: 'delta' # delta will report the change to the previous second
+#    - object_name: 'java.lang:type=ClassLoading'
+#      metrics:
+#        - attributes: 'LoadedClassCount'
+#          type: 'absolute' # absolute will report the value as-is
+    {% for metric in instana_config_jmx -%}
+    - object_name: '{{ metric.object_name }}'
+      metrics:
+        - attributes: '{{ metric.attributes }}'
+          type: '{{ metric.type }}' # delta will report the change to the previous second
+    {% endfor %}
+{% endif %}
+
+{% if instana_config_javatrace is defined %}
+# Java Tracing
+com.instana.plugin.javatrace:
+  instrumentation:
+    # Lightweight Bytecode Instrumentation, enabled by default
+    # Disabling currently requires an agent restart
+    enabled: {{ instana_config_javatrace.enabled }}
+    # To enable using the SDK, provide a list of packages that should be
+    # scanned for SDK annotations. All subpackages are scanned, as it is a
+    # starts-with prefix matching.
+    # Scanning a large amount of classes slows down agent attach and requires
+    # more CPU for parsing, therefore it is recommended to limit to packages
+    # actually using SDK annotations.
+    # By default no packages are scanned for SDK annotations.
+    sdk:
+      packages:
+        {% for package in instana_config_javatrace.packages -%}
+        - '{{ package }}'
+        {% endfor %}
+{% endif %}
+
+{% if instana_config_phptrace is defined and instana_config_phptrace is true %}
+# PHP Tracing
+com.instana.plugin.php:
+  # Lightweight PHP Tracing. Requires the Instana Tracing extension. Enabled by default.
+  tracing:
+    # Enabling tracing will automatically download the Instana Tracing
+    # extension and enable it in your php.ini. If you are using preforked
+    # PHP workers, like PHP-FPM, you will need to restart them. Disabling
+    # tracing again will not remove the extension. It will only disable the
+    # tracing sensor.
+    enabled: {{ instana_config_phptrace }}
+{% endif %}

@@ -1,0 +1,27 @@
+---
+  - name: Enabling Instana service via initd
+    service:
+      name: instana
+      state: started
+      enabled: yes
+    when:
+      - instana_service.initd_enabled is defined
+      - "{{ instana_service.initd_enabled }}"
+
+  - name: reloading systemd
+    systemd:
+      daemon-reload: yes
+      name: instana
+    when:
+      - instana_service.systemd_enabled is defined
+      - "{{ instana_service.systemd_enabled }}"
+
+
+  - name: Enabling Instana service via systemd
+    systemd:
+      name: instana
+      state: started
+      enabled: yes
+    when:
+      - instana_service.systemd_enabled is defined
+      - "{{ instana_service.systemd_enabled }}"

@@ -1,5 +1,6 @@
 Role Name
 =========
+Master: [![Build Status](https://travis-ci.org/digital-realms/ansible_role_instana_agent.svg?branch=master)](https://travis-ci.org/digital-realms/ansible_role_instana_agent)
 
 This role installs the Instana agent and configures it to a state that is running and pushing metrics to their SaaS environment.
 

@@ -14,3 +14,9 @@
       owner: root
       group: root
       mode: 0644
+
+  - name: Changing log level for agent
+    lineinfile:
+      dest: "{{ instana_dest }}/instana-agent/etc/org.ops4j.pax.logging.cfg"
+      regexp: '^log4j.logger.com.instana='
+      line: "log4j.logger.com.instana={{ instana_log_level }}, out, osgi:*"

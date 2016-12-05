@@ -21,11 +21,11 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-As per the requirements section, this agent requires a JDK installed. for ease of reference, this role was tested on a box that is installing the JDK using the following Galaxy role:
+As per the requirements section, this agent requires an Oracle JDK installed. for ease of reference, this role was tested on a box that is installing the Oracle JDK using the following Galaxy role:
 
-  * williamyeh.oracle-java - JDK Install
+  * williamyeh.oracle-java - Oracle JDK Install
 
-Obviously, this role is not a direct dependancy, therefore if you have Java installed on your system, please feel free to ignore this module.
+Obviously, this role is not a direct dependancy, therefore if you have Oracle Java installed on your system, please feel free to ignore this module.
 
 Example Playbook
 ----------------

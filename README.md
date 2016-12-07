@@ -6,12 +6,10 @@ This role installs the Instana agent and configures it to a state that is runnin
 
 The README is still a WIP and the module is an initial commit. it has been targetted towards CentOS 6 & 7 so far, however, we'll be expanding it's scope further along to cover Debian based machines.
 
-Anything below this line is still default and therefore useless to read for now :)
-
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires JDK 8 to be installed. OpenJDK should work too, however is not mentioned in the documentation and therefore should be treated as not supported by the vendor.
 
 Role Variables
 --------------

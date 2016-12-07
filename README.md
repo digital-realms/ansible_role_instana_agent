@@ -1,6 +1,8 @@
-Role Name
+Ansible Role: Instana Agent
 =========
 Master: [![Build Status](https://travis-ci.org/digital-realms/ansible_role_instana_agent.svg?branch=master)](https://travis-ci.org/digital-realms/ansible_role_instana_agent)
+
+Galaxy link: https://galaxy.ansible.com/digital-realms/instana_agent/
 
 This role installs the Instana agent and configures it to a state that is running and pushing metrics to their SaaS environment.
 
@@ -21,9 +23,11 @@ Dependencies
 
 As per the requirements section, this agent requires an Oracle JDK installed. for ease of reference, this role was tested on a box that is installing the Oracle JDK using the following Galaxy role:
 
-  * williamyeh.oracle-java - Oracle JDK Install
+  * [williamyeh.oracle-java](https://galaxy.ansible.com/williamyeh/oracle-java/) - Oracle JDK Install
 
 Obviously, this role is not a direct dependancy, therefore if you have Oracle Java installed on your system, please feel free to ignore this module.
+
+This role expects to find Oracle Java JDK 8 in `/usr/java/default`, if your JDK is in any other path, please over-ride the JDK path using the variable `instana_java_home`.
 
 Example Playbook
 ----------------

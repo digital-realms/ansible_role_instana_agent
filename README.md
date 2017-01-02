@@ -19,7 +19,11 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+As per the requirements section, this agent requires an Oracle JDK installed. for ease of reference, this role was tested on a box that is installing the Oracle JDK using the following Galaxy role:
+
+  * williamyeh.oracle-java - Oracle JDK Install
+
+Obviously, this role is not a direct dependancy, therefore if you have Oracle Java installed on your system, please feel free to ignore this module.
 
 Example Playbook
 ----------------

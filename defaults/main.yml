@@ -1,5 +1,6 @@
 ---
   instana_dest: '/opt'
+  instana_java_home: '/usr/java/default'
   instana_agent_type: 'linux64'
   instana_pid_loc: '/var/run'
   instana_sysd_runlevel: 'multi-user.target'

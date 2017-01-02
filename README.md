@@ -6,12 +6,10 @@ This role installs the Instana agent and configures it to a state that is runnin
 
 The README is still a WIP and the module is an initial commit. it has been targetted towards CentOS 6 & 7 so far, however, we'll be expanding it's scope further along to cover Debian based machines.
 
-Anything below this line is still default and therefore useless to read for now :)
-
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires JDK 8 to be installed. OpenJDK should work too, however is not mentioned in the documentation and therefore should be treated as not supported by the vendor.
 
 Role Variables
 --------------
@@ -21,7 +19,11 @@ A description of the settable variables for this role should go here, including 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+As per the requirements section, this agent requires an Oracle JDK installed. for ease of reference, this role was tested on a box that is installing the Oracle JDK using the following Galaxy role:
+
+  * williamyeh.oracle-java - Oracle JDK Install
+
+Obviously, this role is not a direct dependancy, therefore if you have Oracle Java installed on your system, please feel free to ignore this module.
 
 Example Playbook
 ----------------

@@ -7,7 +7,6 @@ com.instana.secrets:
     - '{{ secret }}'
     {% endfor %}
 {% endif %}
-
 {% if instana_config_tags is defined %}
 # Host
 com.instana.plugin.host:
@@ -16,21 +15,18 @@ com.instana.plugin.host:
     - '{{ tag }}'
     {% endfor %}
 {% endif %}
-
 {% if instana_config_availzone is defined %}
 # Hardware & Zone
 com.instana.plugin.generic.hardware:
   enabled: true # disabled by default
   availability-zone: '{{ instana_config_availzone }}-{{ admin_id.stdout }}'
 {% endif %}
-
 {% if instana_config_httpd is defined %}
 # Apache Httpd
 com.instana.plugin.httpd:
   user: '{{ instana_config_httpd.user }}'
   password: '{{ instana_config_httpd.password }}'
 {% endif %}
-
 {% if instana_config_custproc is defined %}
 # Custom processes
 # To enable low level metric and availability monitoring for not automatically
@@ -49,14 +45,12 @@ com.instana.plugin.process:
     - '{{ argument }}'
     {% endfor %}
 {% endif %}
-
 {% if instana_config_memcached is defined %}
 # Memcached
 com.instana.plugin.memcached:
   user: '{{ instana_config_memcached.user }}'
   password: '{{ instana_config_memcached.password }}'
 {% endif %}
-
 {% if instana_config_mongodb is defined %}
 # MongoDB
 com.instana.plugin.mongodb:
@@ -64,35 +58,30 @@ com.instana.plugin.mongodb:
   source: '{{ instana_config_mongodb.source }}' # database where the user is defined
   password: '{{ instana_config_mongodb.password }}'
 {% endif %}
-
 {% if instana_config_mssql is defined %}
 # Mssql
 com.instana.plugin.mssql:
   user: '{{ instana_config_mssql.user }}'
   password: '{{ instana_config_mssql.password }}'
 {% endif %}
-
 {% if instana_config_mysql is defined %}
 # Mysql
 com.instana.plugin.mysql:
   user: '{{ instana_config_mysql.user }}'
   password: '{{ instana_config_mysql.password }}'
 {% endif %}
-
 {% if instana_config_mariadb is defined %}
 # MariaDB
 com.instana.plugin.mariadb:
   user: '{{ instana_config_mariadb.user }}'
   password: '{{ instana_config_mariadb.password }}'
 {% endif %}
-
 {% if instana_config_postgresql is defined %}
 # PostgreSQL
 com.instana.plugin.postgresql:
   user: '{{ instana_config_postgresql.user }}'
   password: '{{ instana_config_postgresql.password }}'
 {% endif %}
-
 {% if instana_config_redis is defined %}
 # Redis
 com.instana.plugin.redis:
@@ -103,7 +92,6 @@ com.instana.plugin.redis:
       key: '{{ instana_config_redis.monitor.key }}' # key of value, given as string
       type: 'list-length' # metric type. Currently only supports 'list-length'
 {% endif %}
-
 {% if instana_config_rabbitmq is defined %}
 # RabbitMq
 com.instana.plugin.rabbitmq:
@@ -113,7 +101,6 @@ com.instana.plugin.rabbitmq:
     - queue: {{ instana_config_rabbitmq.monitorqueues.queue }} #name of the queue
       vhost: {{ instana_config_rabbitmq.monitorqueues.vhost }} #name of the vhost, default is '/'
 {% endif %}
-
 {% if instana_config_jmx is defined %}
 # Java & Custom JMX
 com.instana.plugin.java:
@@ -136,7 +123,6 @@ com.instana.plugin.java:
           type: '{{ metric.type }}' # delta will report the change to the previous second
     {% endfor %}
 {% endif %}
-
 {% if instana_config_javatrace is defined %}
 # Java Tracing
 com.instana.plugin.javatrace:
@@ -157,8 +143,7 @@ com.instana.plugin.javatrace:
         - '{{ package }}'
         {% endfor %}
 {% endif %}
-
-{% if instana_config_phptrace is defined and instana_config_phptrace is true %}
+{% if instana_config_phptrace is defined %}
 # PHP Tracing
 com.instana.plugin.php:
   # Lightweight PHP Tracing. Requires the Instana Tracing extension. Enabled by default.

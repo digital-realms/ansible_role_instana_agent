@@ -9,7 +9,7 @@ The README is still a WIP and the module is an initial commit. it has been targe
 Requirements
 ------------
 
-This role requires JDK 8 to be installed. OpenJDK should work too, however is not mentioned in the documentation and therefore should be treated as not supported by the vendor.
+This role requires Oracle JDK 8 to be installed. OpenJDK should work too, however is not mentioned in the documentation and therefore should be treated as not supported by the vendor.
 
 Role Variables
 --------------
